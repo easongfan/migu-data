@@ -291,7 +291,6 @@ const ProcessingCanvas = () => {
                         {showPreview ? '隐藏预览' : '显示预览'}
                     </Button>
                     <Button size="sm" variant="success" icon={Play}>运行测试</Button>
-                    <span className="text-xs text-muted ml-2">v1.0.2 (Manual Drag)</span>
                 </div>
             </div>
 
