@@ -37,8 +37,8 @@ const AppShell = () => {
             {/* ... existing sidebar */}
             <aside className="sidebar glass-panel">
                 <div className="sidebar-header">
-                    <div className="logo-icon">M</div>
-                    <span className="logo-text">咪咕数据中台</span>
+                    {/* <div className="logo-icon">M</div>
+                    <span className="logo-text">咪咕数据中台</span> */}
                 </div>
 
                 <nav className="sidebar-nav">
