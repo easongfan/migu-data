@@ -1,0 +1,25 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.card-content {
+    padding: var(--space-6);
+    flex: 1;
+}

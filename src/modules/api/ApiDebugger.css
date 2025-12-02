@@ -1,0 +1,127 @@
+.api-debugger {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    height: 100%;
+}
+
+.request-panel {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+}
+
+.url-bar {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+}
+
+.method-select {
+    width: 100px;
+    padding: 0 12px;
+    background: var(--bg-surface-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.url-input {
+    flex: 1;
+    padding: 0 12px;
+    background: var(--bg-surface-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: monospace;
+}
+
+.params-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.section-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-2);
+}
+
+.header-row {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.param-input {
+    padding: 6px 10px;
+    background: var(--bg-surface-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.response-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.response-header {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.response-meta {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.meta-tag {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: var(--bg-surface-hover);
+    color: var(--text-secondary);
+}
+
+.meta-tag.success {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.response-body {
+    flex: 1;
+    padding: var(--space-4);
+    overflow: auto;
+    background: #1e1e1e;
+}
+
+.json-view {
+    font-family: monospace;
+    font-size: 0.875rem;
+    color: #d4d4d4;
+    margin: 0;
+}
+
+.empty-response {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    gap: var(--space-4);
+}

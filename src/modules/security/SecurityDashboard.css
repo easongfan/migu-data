@@ -1,0 +1,184 @@
+.security-dashboard {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.dashboard-tabs {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.dash-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+}
+
+.dash-tab:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.dash-tab.active {
+    background: var(--primary);
+    color: white;
+}
+
+.dashboard-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.section-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Access Panel */
+.requests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.request-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.req-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.req-user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.req-detail {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.req-time {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.req-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-md);
+}
+
+/* Matrix Table & Logs Table */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.data-table th {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.data-table td {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Network Panel */
+.stat-card {
+    padding: 1.5rem;
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.stat-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.nat-card {
+    padding: 0;
+}
+
+.nat-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+}
+
+.nat-row:last-child {
+    border-bottom: none;
+}
+
+.nat-row.header {
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-secondary);
+    font-weight: 500;
+}
