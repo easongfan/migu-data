@@ -15,6 +15,7 @@ const ProcessingNode = ({ id, type, label, x, y, onDrag, onConnectStart, onConne
             dragMomentum={false}
             initial={false}
             animate={{ x, y, opacity: 1, scale: 1 }}
+            transition={{ duration: 0 }}
             onDrag={(_, info) => onDrag(id, { x: x + info.delta.x, y: y + info.delta.y })}
             className={clsx('processing-node', `node-${type}`, { selected: isSelected })}
             onClick={() => onSelect(id)}

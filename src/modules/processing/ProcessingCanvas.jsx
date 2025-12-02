@@ -456,6 +456,142 @@ const ProcessingCanvas = () => {
                                     </div>
                                 </>
                             )}
+
+                            {/* Calculation Node Config */}
+                            {selectedNode.type === 'calc' && (
+                                <>
+                                    <div className="form-group">
+                                        <label>计算逻辑 (Calculation)</label>
+                                        <div className="p-3 bg-surface-hover rounded border border-border flex flex-col gap-3">
+                                            <div className="flex gap-2 items-center">
+                                                <select className="form-select flex-1" value={selectedNode.config.fieldA || ''} onChange={e => updateNodeConfig('fieldA', e.target.value)}>
+                                                    <option value="">选择字段 A</option>
+                                                    <option value="homeScore">主队得分</option>
+                                                    <option value="awayScore">客队得分</option>
+                                                    <option value="possession">控球率</option>
+                                                </select>
+                                                <select className="form-select w-20" value={selectedNode.config.operator || '+'} onChange={e => updateNodeConfig('operator', e.target.value)}>
+                                                    <option value="+">+</option>
+                                                    <option value="-">-</option>
+                                                    <option value="*">×</option>
+                                                    <option value="/">÷</option>
+                                                </select>
+                                                <select className="form-select flex-1" value={selectedNode.config.fieldB || ''} onChange={e => updateNodeConfig('fieldB', e.target.value)}>
+                                                    <option value="">选择字段 B</option>
+                                                    <option value="homeScore">主队得分</option>
+                                                    <option value="awayScore">客队得分</option>
+                                                    <option value="constant">常数</option>
+                                                </select>
+                                            </div>
+                                            {selectedNode.config.fieldB === 'constant' && (
+                                                <input
+                                                    type="number"
+                                                    className="form-input"
+                                                    placeholder="输入数值"
+                                                    value={selectedNode.config.constantValue || ''}
+                                                    onChange={e => updateNodeConfig('constantValue', e.target.value)}
+                                                />
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>输出字段名 (Output Field)</label>
+                                        <input
+                                            className="form-input"
+                                            placeholder="例如: total_score"
+                                            value={selectedNode.config.outputField || ''}
+                                            onChange={e => updateNodeConfig('outputField', e.target.value)}
+                                        />
+                                    </div>
+                                </>
+                            )}
+
+                            {/* Split Node Config */}
+                            {selectedNode.type === 'split' && (
+                                <>
+                                    <div className="form-group">
+                                        <label>待拆分字段 (Source Field)</label>
+                                        <select className="form-select" value={selectedNode.config.sourceField || ''} onChange={e => updateNodeConfig('sourceField', e.target.value)}>
+                                            <option value="">选择字段</option>
+                                            <option value="coordinates">坐标 (x,y)</option>
+                                            <option value="fullName">全名 (First Last)</option>
+                                            <option value="tags">标签 (Tag1,Tag2)</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>拆分方式 (Delimiter)</label>
+                                        <div className="flex gap-2">
+                                            <select className="form-select flex-1" value={selectedNode.config.delimiter || ','} onChange={e => updateNodeConfig('delimiter', e.target.value)}>
+                                                <option value=",">逗号 (,)</option>
+                                                <option value=" ">空格 (Space)</option>
+                                                <option value="|">竖线 (|)</option>
+                                                <option value="json">JSON 解析</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>输出预览</label>
+                                        <div className="text-xs text-muted p-2 bg-black rounded font-mono">
+                                            {selectedNode.config.sourceField ? `${selectedNode.config.sourceField}_1, ${selectedNode.config.sourceField}_2` : '请选择字段...'}
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+
+                            {/* Merge Node Config */}
+                            {selectedNode.type === 'merge' && (
+                                <>
+                                    <div className="form-group">
+                                        <label>合并字段 (Select Fields)</label>
+                                        <div className="flex flex-col gap-2 p-2 bg-surface-hover rounded border border-border max-h-32 overflow-y-auto">
+                                            {['matchId', 'timestamp', 'homeTeam', 'awayTeam', 'score'].map(f => (
+                                                <label key={f} className="flex items-center gap-2 text-sm">
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={(selectedNode.config.mergeFields || []).includes(f)}
+                                                        onChange={e => {
+                                                            const current = selectedNode.config.mergeFields || [];
+                                                            const updated = e.target.checked
+                                                                ? [...current, f]
+                                                                : current.filter(field => field !== f);
+                                                            updateNodeConfig('mergeFields', updated);
+                                                        }}
+                                                    />
+                                                    {f}
+                                                </label>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>合并策略 (Strategy)</label>
+                                        <select className="form-select" value={selectedNode.config.strategy || 'concat'} onChange={e => updateNodeConfig('strategy', e.target.value)}>
+                                            <option value="concat">字符串拼接 (Concat)</option>
+                                            <option value="object">合并为对象 (Merge Object)</option>
+                                            <option value="array">合并为数组 (Create Array)</option>
+                                        </select>
+                                    </div>
+                                    {selectedNode.config.strategy === 'concat' && (
+                                        <div className="form-group">
+                                            <label>连接符 (Separator)</label>
+                                            <input
+                                                className="form-input"
+                                                placeholder="例如: - "
+                                                value={selectedNode.config.separator || ''}
+                                                onChange={e => updateNodeConfig('separator', e.target.value)}
+                                            />
+                                        </div>
+                                    )}
+                                    <div className="form-group">
+                                        <label>新字段名称</label>
+                                        <input
+                                            className="form-input"
+                                            value={selectedNode.config.outputField || ''}
+                                            onChange={e => updateNodeConfig('outputField', e.target.value)}
+                                            placeholder="merged_result"
+                                        />
+                                    </div>
+                                </>
+                            )}
                         </div>
 
                         <div className="panel-footer">

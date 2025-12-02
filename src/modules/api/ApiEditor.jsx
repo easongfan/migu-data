@@ -13,7 +13,8 @@ const ApiEditor = ({ onSave }) => {
         authType: 'API_KEY',
         rateLimit: 1000,
         whitelist: [],
-        metrics: []
+        metrics: [],
+        dataScope: 'SINGLE' // 'SINGLE' or 'CROSS'
     });
 
     const [whitelistIp, setWhitelistIp] = useState('');
@@ -37,8 +38,104 @@ const ApiEditor = ({ onSave }) => {
             </div>
 
             <div className="editor-grid">
+                {/* Data Mapping */}
+                <Card title="数据源映射 (Data Mapping)" icon={Activity} className="col-span-full">
+                    <div className="mapping-container">
+                        {/* 1. Scope Selection */}
+                        <div className="mapping-section">
+                            <label className="section-label">1. 数据范围 (Data Scope)</label>
+                            <div className="scope-selector">
+                                <button
+                                    className={`scope-btn ${apiConfig.dataScope === 'SINGLE' ? 'active' : ''}`}
+                                    onClick={() => setApiConfig({ ...apiConfig, dataScope: 'SINGLE' })}
+                                >
+                                    <div className="scope-icon">⚽</div>
+                                    <div className="scope-info">
+                                        <span className="scope-title">单场赛事 (Single Match)</span>
+                                        <span className="scope-desc">仅获取指定单场比赛的数据</span>
+                                    </div>
+                                </button>
+                                <button
+                                    className={`scope-btn ${apiConfig.dataScope === 'CROSS' ? 'active' : ''}`}
+                                    onClick={() => setApiConfig({ ...apiConfig, dataScope: 'CROSS' })}
+                                >
+                                    <div className="scope-icon">🌐</div>
+                                    <div className="scope-info">
+                                        <span className="scope-title">跨赛事聚合 (Cross-Match)</span>
+                                        <span className="scope-desc">自由组合多场比赛数据 (支持 1.2.6.d)</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* 2. Source Selection */}
+                        <div className="mapping-section">
+                            <label className="section-label">2. 数据源选择 (Select Sources)</label>
+                            <div className="sources-grid">
+                                <div className="source-card selected">
+                                    <div className="source-icon-wrapper rest">REST</div>
+                                    <div className="source-details">
+                                        <span className="source-name">咪咕体育 API</span>
+                                        <span className="source-status success">● 已连接</span>
+                                    </div>
+                                    <div className="checkbox-indicator">✓</div>
+                                </div>
+                                <div className="source-card">
+                                    <div className="source-icon-wrapper ws">WS</div>
+                                    <div className="source-details">
+                                        <span className="source-name">实时比赛 Socket</span>
+                                        <span className="source-status success">● 活跃</span>
+                                    </div>
+                                    <div className="checkbox-indicator"></div>
+                                </div>
+                                <div className="source-card">
+                                    <div className="source-icon-wrapper db">DB</div>
+                                    <div className="source-details">
+                                        <span className="source-name">历史统计数据库</span>
+                                        <span className="source-status warning">● 同步中</span>
+                                    </div>
+                                    <div className="checkbox-indicator"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* 3. Schema Definition */}
+                        <div className="mapping-section">
+                            <div className="flex justify-between items-center mb-2">
+                                <label className="section-label mb-0">3. 响应结构定义 (Response Schema)</label>
+                                <div className="flex gap-2">
+                                    <Button size="sm" variant="ghost">自动生成</Button>
+                                    <Button size="sm" variant="secondary">导入模版</Button>
+                                </div>
+                            </div>
+                            <div className="code-editor-mock">
+                                <div className="line-numbers">
+                                    {Array.from({ length: 8 }).map((_, i) => <div key={i}>{i + 1}</div>)}
+                                </div>
+                                <textarea
+                                    className="code-textarea"
+                                    spellCheck="false"
+                                    defaultValue={`{
+  "code": 200,
+  "message": "success",
+  "data": {
+    "matches": [
+      { "matchId": "String", "homeScore": "Number", "awayScore": "Number" }
+    ],
+    "aggregatedStats": {
+      "totalGoals": "Number",
+      "averagePossession": "Number"
+    }
+  }
+}`}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </Card>
+
                 {/* Basic Info */}
-                <Card title="基本信息" icon={Settings}>
+                <Card title="API 接口定义 (Interface Definition)" icon={Settings}>
                     <div className="form-group">
                         <label>API 名称</label>
                         <input
@@ -169,6 +266,8 @@ const ApiEditor = ({ onSave }) => {
                 </Card>
 
                 {/* Custom Metrics */}
+
+                {/* Custom Metrics */}
                 <Card title="自定义指标" icon={Activity}>
                     <div className="empty-state-small">
                         <p>暂无自定义指标配置</p>
@@ -176,7 +275,7 @@ const ApiEditor = ({ onSave }) => {
                     </div>
                 </Card>
             </div>
-        </div>
+        </div >
     );
 };
 

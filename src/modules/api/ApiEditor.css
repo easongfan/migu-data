@@ -115,3 +115,197 @@
     border: 1px dashed var(--border);
     border-radius: var(--radius-md);
 }
+
+/* --- Data Mapping Styles --- */
+.mapping-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.section-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Scope Selector */
+.scope-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+.scope-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-align: left;
+    transition: all 0.2s;
+}
+
+.scope-btn:hover {
+    background: var(--bg-surface-hover);
+    border-color: var(--primary);
+}
+
+.scope-btn.active {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.2);
+}
+
+.scope-icon {
+    font-size: 1.5rem;
+}
+
+.scope-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.scope-title {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.scope-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Source Cards */
+.sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-4);
+}
+
+.source-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.source-card:hover {
+    background: var(--bg-surface-hover);
+}
+
+.source-card.selected {
+    background: rgba(99, 102, 241, 0.05);
+    border-color: var(--primary);
+}
+
+.source-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: white;
+}
+
+.source-icon-wrapper.rest {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.source-icon-wrapper.ws {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.source-icon-wrapper.db {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.source-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.source-name {
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.source-status {
+    font-size: 0.75rem;
+}
+
+.source-status.success {
+    color: var(--success);
+}
+
+.source-status.warning {
+    color: var(--warning);
+}
+
+.checkbox-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: white;
+    transition: all 0.2s;
+}
+
+.source-card.selected .checkbox-indicator {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+/* Code Editor Mock */
+.code-editor-mock {
+    display: flex;
+    background: #1e1e1e;
+    /* VS Code dark bg */
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    font-family: 'Fira Code', monospace;
+}
+
+.line-numbers {
+    padding: var(--space-4) var(--space-2);
+    background: #252526;
+    color: #858585;
+    font-size: 0.875rem;
+    text-align: right;
+    user-select: none;
+}
+
+.code-textarea {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #d4d4d4;
+    padding: var(--space-4);
+    font-family: inherit;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    resize: vertical;
+    outline: none;
+    min-height: 200px;
+}
