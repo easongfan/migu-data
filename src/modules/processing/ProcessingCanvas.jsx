@@ -49,9 +49,11 @@ const ProcessingCanvas = () => {
     const [showPreview, setShowPreview] = useState(true);
     const [currentVersion, setCurrentVersion] = useState(VERSIONS[0]);
 
-    // Connection Interaction State
+    // Connection & Drag State
     const [isConnecting, setIsConnecting] = useState(false);
     const [tempConnection, setTempConnection] = useState(null);
+    const [draggingNodeId, setDraggingNodeId] = useState(null);
+    const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
     // Preview Panel State
     const [previewHeight, setPreviewHeight] = useState(200);
@@ -112,8 +114,21 @@ const ProcessingCanvas = () => {
         return `M ${sx} ${sy} C ${controlPoint1.x} ${controlPoint1.y}, ${controlPoint2.x} ${controlPoint2.y}, ${ex} ${ey}`;
     };
 
-    const handleNodeDrag = (id, newPos) => {
-        setNodes(prevNodes => prevNodes.map(n => n.id === id ? { ...n, x: newPos.x, y: newPos.y } : n));
+    const handleNodeDragStart = (id, e) => {
+        e.stopPropagation(); // Prevent canvas drag if we had one
+        const node = nodes.find(n => n.id === id);
+        if (!node || !canvasRef.current) return;
+
+        const rect = canvasRef.current.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        setDraggingNodeId(id);
+        setDragOffset({
+            x: mouseX - node.x,
+            y: mouseY - node.y
+        });
+        setSelectedNode(node); // Auto-select on drag start
     };
 
     const handleAddNode = (type, label) => {
@@ -150,6 +165,7 @@ const ProcessingCanvas = () => {
 
     // Connection Handlers
     const handleConnectStart = (sourceId, e) => {
+        e.stopPropagation();
         const node = nodes.find(n => n.id === sourceId);
         if (!node) return;
 
@@ -167,17 +183,30 @@ const ProcessingCanvas = () => {
     };
 
     const handleMouseMove = (e) => {
-        if (!isConnecting || !canvasRef.current) return;
+        if (!canvasRef.current) return;
         const rect = canvasRef.current.getBoundingClientRect();
-
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
 
-        setTempConnection(prev => ({
-            ...prev,
-            currX: mouseX,
-            currY: mouseY
-        }));
+        // Handle Node Dragging
+        if (draggingNodeId) {
+            const newX = mouseX - dragOffset.x;
+            const newY = mouseY - dragOffset.y;
+
+            setNodes(prevNodes => prevNodes.map(n =>
+                n.id === draggingNodeId ? { ...n, x: newX, y: newY } : n
+            ));
+            return;
+        }
+
+        // Handle Connection Dragging
+        if (isConnecting) {
+            setTempConnection(prev => ({
+                ...prev,
+                currX: mouseX,
+                currY: mouseY
+            }));
+        }
     };
 
     const handleConnectEnd = (targetId) => {
@@ -202,6 +231,9 @@ const ProcessingCanvas = () => {
         if (isConnecting) {
             setIsConnecting(false);
             setTempConnection(null);
+        }
+        if (draggingNodeId) {
+            setDraggingNodeId(null);
         }
     };
 
@@ -259,7 +291,7 @@ const ProcessingCanvas = () => {
                         {showPreview ? '隐藏预览' : '显示预览'}
                     </Button>
                     <Button size="sm" variant="success" icon={Play}>运行测试</Button>
-                    <span className="text-xs text-muted ml-2">v1.0.1 (Fix Drag)</span>
+                    <span className="text-xs text-muted ml-2">v1.0.2 (Manual Drag)</span>
                 </div>
             </div>
 
@@ -298,7 +330,7 @@ const ProcessingCanvas = () => {
                             {...node}
                             isSelected={selectedNode?.id === node.id}
                             onSelect={handleNodeSelect}
-                            onDrag={handleNodeDrag}
+                            onDragStart={handleNodeDragStart}
                             onDelete={handleDeleteNode}
                             onConnectStart={handleConnectStart}
                             onConnectEnd={handleConnectEnd}

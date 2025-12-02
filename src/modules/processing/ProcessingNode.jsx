@@ -1,28 +1,21 @@
 import React from 'react';
-import { motion, useDragControls } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Settings, X } from 'lucide-react';
 import clsx from 'clsx';
 import './ProcessingNode.css';
 
-const ProcessingNode = ({ id, type, label, x, y, onDrag, onConnectStart, onConnectEnd, onDelete, isSelected, onSelect }) => {
-    const dragControls = useDragControls();
-
+const ProcessingNode = ({ id, type, label, x, y, onDragStart, onConnectStart, onConnectEnd, onDelete, isSelected, onSelect }) => {
     return (
         <motion.div
-            drag
-            dragControls={dragControls}
-            dragListener={false}
-            dragMomentum={false}
             initial={false}
             animate={{ x, y, opacity: 1, scale: 1 }}
             transition={{ duration: 0 }}
-            onDrag={(_, info) => onDrag(id, { x: x + info.delta.x, y: y + info.delta.y })}
             className={clsx('processing-node', `node-${type}`, { selected: isSelected })}
             onClick={() => onSelect(id)}
         >
             <div
                 className="node-header"
-                onPointerDown={(e) => dragControls.start(e)}
+                onPointerDown={(e) => onDragStart(id, e)}
                 style={{ cursor: 'grab' }}
             >
                 <span className="node-label">{label}</span>
