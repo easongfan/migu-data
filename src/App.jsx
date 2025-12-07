@@ -9,6 +9,7 @@ import ReferenceManagement from './modules/reference/ReferenceManagement';
 import ApiDashboard from './modules/api/ApiDashboard';
 import SecurityDashboard from './modules/security/SecurityDashboard';
 import PlayoutControl from './modules/playout/PlayoutControl';
+import SystemDashboard from './modules/system/SystemDashboard';
 
 export const UserContext = createContext();
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="api" element={<ApiDashboard />} />
             <Route path="security" element={<SecurityDashboard />} />
             <Route path="playout" element={<PlayoutControl />} />
+            <Route path="system" element={<SystemDashboard />} />
           </Route>
         </Routes>
       </Router>

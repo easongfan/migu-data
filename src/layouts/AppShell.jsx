@@ -25,6 +25,7 @@ const navItems = [
     { path: '/reference', icon: BookOpen, label: '公共代码' },
     { path: '/api', icon: Server, label: 'API 管理' },
     { path: '/security', icon: Shield, label: '安全中心' },
+    { path: '/system', icon: Settings, label: '系统管理' },
     { path: '/playout', icon: MonitorPlay, label: '播控中心' },
 ];
 

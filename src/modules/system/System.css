@@ -1,0 +1,120 @@
+.system-dashboard {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.system-tabs {
+    display: flex;
+    gap: var(--space-4);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--space-4);
+}
+
+.system-tab {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+}
+
+.system-tab:hover {
+    color: var(--text-primary);
+    background: var(--bg-surface-hover);
+}
+
+.system-tab.active {
+    color: var(--primary);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.system-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* User List Styles */
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-surface-hover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.status-active {
+    background: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+}
+
+.status-inactive {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+/* Role List Styles */
+.role-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-4);
+}
+
+.permission-tree {
+    margin-top: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.perm-group {
+    margin-bottom: var(--space-3);
+}
+
+.perm-group-header {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.perm-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.perm-item:hover {
+    background: var(--bg-surface-hover);
+    border-radius: var(--radius-sm);
+}
